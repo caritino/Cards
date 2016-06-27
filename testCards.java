@@ -5,6 +5,8 @@
  */
 package cards;
 
+import java.util.Arrays;
+
 /**
  *
  * @author araba
@@ -16,16 +18,32 @@ public class testCards {
 //        System.out.println(baraja.toString());
     
     
-            Deck deck = new Deck();
-		Cards C;
+//            
+//		
+//
+//		System.out.println( deck.getTotalCards() );
+//
+//	   while (deck.getTotalCards()!= 0 )
+//	   {
+//		   C = deck.drawFromDeck();
+//		   System.out.println( C.toString() );
+//           }    
+//    }
 
-		System.out.println( deck.getTotalCards() );
-
-	   while (deck.getTotalCards()!= 0 )
+        Hand mano = new Hand();
+        Deck deck = new Deck();
+        Cards baraja;
+        
+        System.out.println(Arrays.toString(mano.getHand()));
+        System.out.println(Arrays.toString(mano.getHand()));
+        System.out.println("");
+        
+        
+        while (deck.getTotalCards()!= 0 )
 	   {
-		   C = deck.drawFromDeck();
-		   System.out.println( C.toString() );
+		   baraja = deck.drawFromDeck();
+		   System.out.println( baraja.toString() );
            }    
-    }
-    
+
+    }    
 }

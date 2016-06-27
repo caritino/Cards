@@ -1,22 +1,19 @@
 package cards;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Deck {
-	private Cards[] cards;
-	int i;
+	private ArrayList<Cards> cards;
 
-	Deck()
+	 Deck()
 	{
-		i=51;
-		cards = new Cards[52];
-		int x=0;
+		cards = new ArrayList<Cards>();
 		for (int a=0; a<=3; a++)
 		{
 			for (int b=0; b<=12; b++)
 			 {
-			   cards[x] = new Cards(a,b);
-			   x++;
+			   cards.add( new Cards(a,b) );
 			 }
 		}
 	}
@@ -24,20 +21,12 @@ public class Deck {
 	public Cards drawFromDeck()
 	{
 		Random generator = new Random();
-		int index=0;
-
-		do {
-			index = generator.nextInt( 52 );
-		} while (cards[index] == null);
-
-		i--;
-		Cards temp = cards[index];
-		cards[index]= null;
-		return temp;
+		int index= generator.nextInt( cards.size() );
+		return cards.remove(index);
 	}
 
-	public int getTotalCards()
+	 public int getTotalCards()
 	{
-		return i;
+		return cards.size();
 	}
-} 
+}
