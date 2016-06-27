@@ -6,6 +6,7 @@
 package cards;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -33,6 +34,11 @@ public class testCards {
     }
     
     public static void leeCartas(ArrayList<Cards> mano, Cards cartaCompara, Deck baraja){
+        System.out.println("");
+        System.out.println("Turno de la IA");
+        System.out.println("Mano de la IA al inicio del turno: "+mano.toString());
+        System.out.println("");
+        
         if( comparaCartas(mano.get(0), cartaCompara) == 1){
             cartaCompara = mano.get(0);
             mano.remove(0);
@@ -64,14 +70,81 @@ public class testCards {
                 mano.remove(5);
             }
         }
-        System.out.println("Mano al terminar turno: "+mano.toString());
-        System.out.println("Nueva carta referencia: "+cartaCompara);
+        System.out.println("Mano de la IA: "+mano.toString());
+        System.out.println("Carta referencia: "+cartaCompara);
+    }
+    
+    public static void leeCartasUsuario(ArrayList<Cards> mano, Cards cartaCompara, Deck baraja){
+        
+        Scanner teclado = new Scanner(System.in);
+        int seleccionUser;
+        
+        System.out.println("");        
+        System.out.println("Turno del usuario");
+        System.out.println("Mano del usuario al inicio del turno: "+mano.toString());
+        System.out.println("");
+        
+        System.out.println("¿Que carta desea dar?");
+        seleccionUser = teclado.nextInt();
+        
+        if(comparaCartas(mano.get(seleccionUser),cartaCompara) == 1){
+            cartaCompara = mano.get(seleccionUser);
+            mano.remove(seleccionUser);
+        }
+        else{
+            System.out.println("Opcion no vâlida");
+            
+            if(mano.size() == 4){
+            
+                if( comparaCartas(mano.get(0), cartaCompara) == 1 || comparaCartas(mano.get(1), cartaCompara) == 1 || comparaCartas(mano.get(2), cartaCompara) == 1 || comparaCartas(mano.get(3), cartaCompara) == 1){
+                    System.out.println("Tienes una carta que puedes dar, elige la carta correcta :D");
+                } else{
+                    System.out.println("No tienes ninguna carta que dar, jala una carta");
+                    mano.add(baraja.drawFromDeck());
+                    leeCartasUsuario(mano, cartaCompara, baraja);
+                }
+            } else if(mano.size() == 3){
+            
+                if( comparaCartas(mano.get(0), cartaCompara) == 1 || comparaCartas(mano.get(1), cartaCompara) == 1 || comparaCartas(mano.get(2), cartaCompara) == 1){
+                    System.out.println("Tienes una carta que puedes dar, elige la carta correcta :D");
+                } else{
+                    System.out.println("No tienes ninguna carta que dar, jala una carta");
+                    mano.add(baraja.drawFromDeck());
+                    leeCartasUsuario(mano, cartaCompara, baraja);
+                }
+            } else if(mano.size() == 2){
+            
+                if( comparaCartas(mano.get(0), cartaCompara) == 1 || comparaCartas(mano.get(1), cartaCompara) == 1){
+                    System.out.println("Tienes una carta que puedes dar, elige la carta correcta :D");
+                } else{
+                    System.out.println("No tienes ninguna carta que dar, jala una carta");
+                    mano.add(baraja.drawFromDeck());
+                    leeCartasUsuario(mano, cartaCompara, baraja);
+                }
+            } else if(mano.size() == 1){
+            
+                if( comparaCartas(mano.get(0), cartaCompara) == 1){
+                    System.out.println("Tienes una carta que puedes dar, elige la carta correcta :D");
+                } else{
+                    System.out.println("No tienes ninguna carta que dar, jala una carta");
+                    mano.add(baraja.drawFromDeck());
+                    leeCartasUsuario(mano, cartaCompara, baraja);
+                }
+            } else if(mano.size() == 0){
+                System.out.println("Has ganado");
+            }
+        }
+        System.out.println("Mano del usuario: "+mano.toString());
+        System.out.println("Carta referencia: "+cartaCompara);
     }
     
     public static void main(String[] args) {
         
         // Se declara el deck
         Deck mazo = new Deck();
+        int j;
+
+        
         Cards cartaInicial;
 
         // Se declaran las dos manos
@@ -86,11 +159,17 @@ public class testCards {
         cartaInicial = mazo.drawFromDeck();
         
         System.out.println("Carta inicial: "+cartaInicial.toString());
-        System.out.println("Mano inicial de la IA:"+manoIA.toString());
+        System.out.println("Mano inicial del usuario: "+manoUser.toString());
+        System.out.println("Mano inicial de la IA: "+manoIA.toString());
         
-        leeCartas(manoIA, cartaInicial, mazo);
+        while(mazo.getTotalCards() != 0){
+            leeCartasUsuario(manoUser, cartaInicial, mazo);
+            leeCartas(manoIA, cartaInicial, mazo);
+        }
+        
         
 
+        
 
     }
 }
