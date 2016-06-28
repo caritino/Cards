@@ -1,3 +1,5 @@
+// Source: http://www.dreamincode.net/forums/topic/110380-deck-of-cards-using-various-methods/
+
 package cards;
 
 import java.util.Random;

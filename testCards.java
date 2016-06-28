@@ -135,6 +135,7 @@ public class testCards {
         
         while(mazo.getTotalCards()!=0){
             leeCartasUsuario(manoUser, cartaInicial, mazo);
+            System.out.println("Carta inicial: "+cartaInicial.toString());
             leeCartas(manoIA, cartaInicial, mazo);
         }
     }
